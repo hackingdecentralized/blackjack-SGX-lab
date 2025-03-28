@@ -6,7 +6,7 @@
 pip install --upgrade --extra-index-url https://PySimpleGUI.net/install PySimpleGUI
 ```
 
-* Install pillow
+* Install pillow (`pip install pillow`)
 
 * with all dependencies installed, the GUI client can be started by
 

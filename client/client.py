@@ -14,7 +14,7 @@ def decode_msg(s):
     res = b''
     while True:
         try:
-            chunk = s.recv(4096) 
+            chunk = s.recv(4096)
             if not chunk:
                 break
             res += chunk

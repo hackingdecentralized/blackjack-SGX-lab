@@ -6,6 +6,7 @@
 *_args.h
 *.pem
 *.signed
+.DS_Store
 __pycache__/
 server/enclave/blackjack_enclave
 server/host/cli

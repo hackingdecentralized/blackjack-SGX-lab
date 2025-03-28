@@ -10,16 +10,17 @@ DARK_GREEN = "#06402B"
 WHITE="#FFFFFF"
 NUM_CARDS = 52
 CARD_BACK_IMAGE = "../images/card_back.png"
-
+SGX_AVATAR = "../images/sgx.png"
+USER_AVATAR = "../images/you.png"
 
 def start_window_blackjack():
     sg.set_options(background_color=DARK_GREEN)
     NUM_PLAYERS = 2
     MAX_CARDS_PER_PLAYER = math.ceil(NUM_CARDS/NUM_PLAYERS)
     layout = [[sg.Text("Dealer", size=(6,1), text_color=WHITE, auto_size_text=True, font=" 16")],
-              [sg.Col([[sg.Image(filename=CARD_BACK_IMAGE)] +[sg.Image(filename=CARD_BACK_IMAGE, visible=False, k=f"D{i}") for i in range(MAX_CARDS_PER_PLAYER)]])],
+              [sg.Col([[sg.Image(filename=SGX_AVATAR)] +[sg.Image(filename=CARD_BACK_IMAGE, visible=False, k=f"D{i}") for i in range(MAX_CARDS_PER_PLAYER)]])],
               [sg.Text("You", size=(3,1), text_color=WHITE, font=" 16")],
-              [sg.Col([[sg.Image(filename=CARD_BACK_IMAGE)] +[sg.Image(filename=CARD_BACK_IMAGE, visible=False, k=f"P{i}") for i in range(MAX_CARDS_PER_PLAYER)]])],
+              [sg.Col([[sg.Image(filename=USER_AVATAR)] +[sg.Image(filename=CARD_BACK_IMAGE, visible=False, k=f"P{i}") for i in range(MAX_CARDS_PER_PLAYER)]])],
               [sg.Col([[sg.Button('Deal', k='-Deal-'), sg.Button('Restart', k="-Restart-", visible=False), sg.Button('Exit', k="-Exit-", visible=False), sg.Button('Hit', k="-Hit-", visible=False), sg.Button('Stand', k="-Stand-", visible=False)]], k="-Buttons-")],
               [sg.Text("You ????\n[You 00]\n[Dealer 00]\n\n", text_color=WHITE, size=(20,5), k="-Result-", visible=False, justification="center", font=" 32")]]
     window = sg.Window('Blackjack', layout)
@@ -43,7 +44,6 @@ def convert_bmp_to_png(bmp_data):
     return png_data
 
 def update_window_blackjack(window, res, change_buttons=False):
-
     player_cards = res["player_cards"]
     dealer_cards = res["dealer_cards"]
     for i in range(len(player_cards)):
@@ -72,7 +72,7 @@ def update_window_blackjack(window, res, change_buttons=False):
         update_window_blackjack(window, client.stand(HOST, PORT))
     else:
         window.close()
-        exit(0)    
+        exit(0)
 
 def final_window_blackjack(window, res):
     window[('-Hit-')].update(visible=False)
@@ -80,7 +80,7 @@ def final_window_blackjack(window, res):
     window[('-Restart-')].update(visible=True)
     window[('-Exit-')].update(visible=True)
 
-    player_score, dealer_score = res["result"] 
+    player_score, dealer_score = res["result"]
     message = "You Lost!"
     if (dealer_score < player_score or dealer_score > 21) and player_score <= 21:
         message = "You Won!"
@@ -91,7 +91,7 @@ def final_window_blackjack(window, res):
         client.exit(HOST, PORT)
         window.close()
         exit(0)
-    elif event == "-Exit":
+    elif event == "-Exit-":
         window.close()
         client.exit(HOST, PORT)
     elif event == "-Restart-":
