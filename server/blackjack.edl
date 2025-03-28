@@ -1,0 +1,55 @@
+// Copyright (c) Open Enclave SDK contributors.
+// Licensed under the MIT License.
+
+enclave {
+    from "openenclave/edl/attestation.edl" import *;
+    from "openenclave/edl/syscall.edl" import *;
+    from "platform.edl" import *;
+
+
+    struct message_t
+    {
+        [size=size] uint8_t* data;
+        size_t size;
+    };
+
+    trusted {
+        public int generate_attestation_report([out] message_t * evidence_buffer);
+
+        public int setup_card_mapping();
+
+        public int run_server(int port);
+
+    };
+
+    untrusted {
+        int store_card_mapping ([in] message_t* data);
+
+        int read_card_mapping (
+            [out, size=size] uint8_t* data, size_t size);
+
+        int store_signature (
+            [in] message_t* data, 
+            [in] message_t* signature);
+
+        int store_public_key (
+            [in] message_t* data);
+
+        int store_private_key(
+            [in] message_t* data);
+
+        int read_private_key(
+            [out, size=size] uint8_t* data, size_t size);
+
+        void store_card(
+            [in, string] const char* path,
+            [in] message_t* data);
+
+        int read_card(
+            [in, string] const char* path,
+            [out, size=size] uint8_t* data, size_t size);
+            
+        int read_card_sprite (
+            [out, size=size] uint8_t* data, size_t size);
+    };
+};
