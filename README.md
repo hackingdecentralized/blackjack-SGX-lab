@@ -1,5 +1,7 @@
 # Blackjack Enclave Challenge
 
+_Acknowledgement: This lab is developed in collaboration with Prof. Andrew Miller and Nerla Jean-Louis at UIUC. The vast majority of the credit goes to them._
+
 This repo contains a faulty or poorly designed blackjack game with a fatal flaw. 
 You should be able to up your chances of beating our sophisticated AI dealer by modifying non-enclave files (i.e. not anything in [server/enclave](server/enclave/)).
 
